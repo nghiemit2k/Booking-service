@@ -6,8 +6,15 @@ export class CreateUserSto {
     @IsEmail()
     @IsNotEmpty()
     email: string;
+
+    @IsString()
+    @IsNotEmpty()
     password: string;
+
+    @IsString()
+    @IsNotEmpty()
     password2: string;
+    
     firstName: string;
     lastName: string;
     @IsString()

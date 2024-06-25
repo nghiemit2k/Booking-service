@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { SessionTemplateController } from "./seesion-template.controller";
+import { SessionTemplateController } from "./session-template.controller";
 
 @Module({
     controllers: [SessionTemplateController]

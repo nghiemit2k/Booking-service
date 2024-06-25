@@ -5,7 +5,7 @@ import { CreateUserSto } from "./dto/create-user.dto";
 @Controller()
 export class UserController {
     constructor(private userService: UserService){}
-    @Post('/register')
+    @Post('/register/')
     register(@Body() data: CreateUserSto) {
         this.userService.register(data);
     }
