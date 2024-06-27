@@ -22,7 +22,10 @@ export class UserController {
        return this.userService.register(data);
     }
     @Patch('users/:userId')
-    updateUser(){}
+    updateUserInfo(){}
     @Patch('/users/:userId/update-password')
     updatePassword(){}
+
+
+
 }
