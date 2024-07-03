@@ -2,10 +2,10 @@ import { Body, Controller, Get, Patch, Post, Req, UseGuards } from "@nestjs/comm
 import { UserService } from "./user.service";
 import { CreateUserSto } from "./dto/create-user.dto";
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
-import { AuthGuard } from "../guard/auth.guard";
-import { Request } from 'express';
+import { Public } from "src/common/decorator/public.decorator";
 import { UserReq } from "src/common/decorator/user.decorator";
 import { User } from "@prisma/client";
+
 @ApiTags('User')
 @Controller()
 export class UserController {
@@ -20,6 +20,7 @@ export class UserController {
     })
     @ApiBadRequestResponse({description:"Validation error"})
     @ApiCreatedResponse({description:" User created successfully"})
+    @Public()
     @Post('/register/')
     register(@Body() data: CreateUserSto) {
        return this.userService.register(data);
