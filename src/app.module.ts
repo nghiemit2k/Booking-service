@@ -4,13 +4,22 @@ import { SessionTemplateModule } from './domain/session-template/session-templat
 import { AuthModule } from './domain/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './domain/guard/auth.guard';
-import { DatabaseService } from './database/database.service';
+
 import { DataBaseModule } from './database/database.module';
+import { ConfigModule } from '@nestjs/config';
+import { validate } from './config';
 
 
 
 @Module({
-  imports: [DataBaseModule,UserModule,SessionTemplateModule, AuthModule],
+  imports: [
+    ConfigModule.forRoot({
+      validate
+    }),
+    DataBaseModule,
+    UserModule,
+    SessionTemplateModule,
+    AuthModule],
   controllers: [],
   providers: [ {
     provide: APP_GUARD,
