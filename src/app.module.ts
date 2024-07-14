@@ -1,4 +1,4 @@
-import { Module, Session } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, Session } from '@nestjs/common';
 import { UserModule } from './domain/user/user.module';
 import { SessionTemplateModule } from './domain/session-template/session-template.module';
 import { AuthModule } from './domain/auth/auth.module';
@@ -8,6 +8,12 @@ import { AuthGuard } from './domain/guard/auth.guard';
 import { DataBaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { validate } from './config';
+import { LoggerMiddleware } from './middleware/logger.middleware';
+import { AuthenticationMiddleware } from './middleware/authentication.middleware';
+
+
+import { UserService } from './domain/user/user.service';
+import { DatabaseService } from './database/database.service';
 
 
 
@@ -21,9 +27,24 @@ import { validate } from './config';
     SessionTemplateModule,
     AuthModule],
   controllers: [],
-  providers: [ {
+  
+  providers: [ 
+    {
     provide: APP_GUARD,
     useClass: AuthGuard,
-  }, ] ,
+  }, 
+ ] ,
+
+ exports: [],
 })
-export class AppModule {}
+
+ 
+
+export class AppModule implements NestModule{
+  configure(consumer: MiddlewareConsumer) {
+    // import middleware for routes
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+    // consumer.apply(AuthenticationMiddleware).forRoutes('*');
+  }
+
+}
