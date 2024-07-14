@@ -1,15 +1,18 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { Prisma } from "@prisma/client";
+import { Prisma,User } from "@prisma/client";
 import { DatabaseService } from "src/database/database.service";
 import bcrypt from 'bcrypt'
-import { networkInterfaces } from "os";
-@Injectable()
+import { BaseService } from "src/common/service/base.service";
 
-export class UserService {
-    constructor(private databaseService: DatabaseService) {};
-    findMany() {
-        return this.databaseService.user.findMany();
+
+@Injectable()
+export class UserService extends BaseService< Prisma.UserCreateInput,Prisma.UserUpdateInput> {
+    constructor( databaseService: DatabaseService) {
+        super(databaseService,'user')
     }
+    // findMany() {
+    //     return this.databaseService.user.findMany();
+    // }
     async register(data: Prisma.UserCreateInput) {
         const hashedPassword = await this.hashPassword(data.password);
         console.log("🚀 ~ UserService ~ register ~ hashedPassword:", hashedPassword)
@@ -44,4 +47,12 @@ export class UserService {
     }
 
 
+    // async findByEmail(email: string) {
+    //     return this.databaseService.user.findUnique({
+    //         where: { email },
+    //         select: { id: true, email: true },
+    //     });
+    // }
+
+  
 }

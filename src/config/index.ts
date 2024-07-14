@@ -15,6 +15,9 @@ export class EnvironmentVariables{
     DATABASE_HOST: string;
 
     @IsNotEmpty()
+    APP_KEY: string;
+
+    @IsNotEmpty()
     DATABASE_PORT:number;
 
     @IsNotEmpty()
@@ -51,6 +54,7 @@ const config = {
     DATABASE_USERNAME: process.env.DATABASE_USERNAME,
     DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
     DATABASE_NAME: process.env.DATABASE_NAME,
+    APP_KEY: process.env.APP_KEY
 }
 
 export default config;

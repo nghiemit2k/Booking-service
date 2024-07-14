@@ -1,6 +1,6 @@
 import { ApiBadRequestResponse, ApiForbiddenResponse, ApiInternalServerErrorResponse, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse, ApiUnprocessableEntityResponse } from "@nestjs/swagger";
 import {applyDecorators} from '@nestjs/common'
-import { SessionTemplateResponDto } from "src/domain/user/dto/Session-template-response.dto";
+
 interface ApiOperatorOptions{
     type: any,
     summary: string,
