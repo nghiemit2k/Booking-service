@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
 import config from './config'
+import { SerializeInterceptor } from './interceptor/serialize.intercepter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   dotenv.config();
@@ -20,7 +21,7 @@ const document = SwaggerModule.createDocument(app, config);
 SwaggerModule.setup('docs', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
-
+  app.useGlobalInterceptors(new SerializeInterceptor());
   const appPort = process.env.APP_PORT || 3000;
   await app.listen(appPort);
 

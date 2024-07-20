@@ -13,7 +13,7 @@ export class UpdateSessionTemplateDto {
     @IsString()
     @IsOptional()
     
-    name?: String;
+    name?: string;
 
     @IsOptional()
     @IsNumber()

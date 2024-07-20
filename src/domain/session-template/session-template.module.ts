@@ -1,7 +1,12 @@
 import { Module } from "@nestjs/common";
 import { SessionTemplateController } from "./session-template.controller";
+import { SessionTemplateService } from "./session-template.service";
+import { DataBaseModule } from "src/database/database.module";
 
 @Module({
-    controllers: [SessionTemplateController]
+    imports: [DataBaseModule],
+    exports: [SessionTemplateService],
+    controllers: [SessionTemplateController],
+    providers: [SessionTemplateService]
 })
 export class SessionTemplateModule{}

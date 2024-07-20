@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsString, MaxLength, Min, MinLength } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, Min, MinLength } from "class-validator";
 
 export class CreateSessionTemplateDto {
     @ApiProperty({
@@ -13,11 +13,22 @@ export class CreateSessionTemplateDto {
     @IsString()
     @IsNotEmpty()
     
-    name: String;
+    name: string;
 
-    @IsNotEmpty()
-    @IsNumber()
-    @Min(5)
+    @ApiProperty({
+        type: String,
+        required: false,
+        description: "The description of the session template",
+        example: "this is a Session Template description"
+    })
+    @MaxLength(250)
+    @MinLength(5)
+    @IsString()
+    @IsOptional()
+
+    description?: string;
+
+   
 
     @ApiProperty({
         type: String,
@@ -25,5 +36,8 @@ export class CreateSessionTemplateDto {
         description: "The duration of the session template",
         example: 30
     })
+    @IsNotEmpty()
+    @IsNumber()
+    @Min(5)
     duration: number;
 }
