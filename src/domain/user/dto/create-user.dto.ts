@@ -5,7 +5,7 @@ import { EUserRole } from "src/common/interface";
 import * as dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
-import { IsEmailUnique } from "src/common/decorator/validate-unique-email.decorator";
+// import { IsEmailUnique } from "src/common/decorator/validate-unique-email.decorator";
 // import { IsEmailUnique } from "src/common/decorator/validate-unique-email.decorator";
 
 
@@ -17,7 +17,7 @@ export class CreateUserSto {
     @IsString()
     @IsEmail()
     @IsNotEmpty()
-    @IsEmailUnique({ message: 'Email must be unique' })
+    // @IsEmailUnique({ message: 'Email must be unique' })
     email: string;
     // TODO: must have a least 1 uppercase, 1 lowercase, 1 number, 1 special characters
     // option 2: regex

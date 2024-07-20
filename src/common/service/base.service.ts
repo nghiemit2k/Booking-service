@@ -9,29 +9,29 @@ export class BaseService<CreateDto, UpdateDto> {
     ){}
 
    async findMany() {
-       const result= await this.databaseService[this.moduleName].findMany({
-        select: {
-            id: true,
-            email: true,
-            firstName: true,
-            lastName: true,
-            phone: true,
-            timezoneCode: true,
-            emailVerified: true,
-            isActive: true,
-            createdAt: true,
-            updatedAt: true,
-            // Exclude the password field
-            password: false,
-        },
-        });
+       const result= await this.databaseService[this.moduleName].findMany();
         return result;
     }
-
+    findById(id: number) {
+        return this.databaseService[this.moduleName].findUnique({
+            where: { id }
+        });
+    }
     create(data: CreateDto) {
         return this.databaseService[this.moduleName].create({ data });
     }
-
+    updateById(id: number, data: UpdateDto) {
+        return this.databaseService[this.moduleName].update({
+            where: { id },
+            data
+        });
+    }
+    deleteById(id: number) {
+        return this.databaseService[this.moduleName].delete({
+            where: { id },
+        });
+    }
+    
     // async findByEmail(email: string) {
     //     const result = await this.databaseService[this.moduleName].findUnique({
     //         where: { email },

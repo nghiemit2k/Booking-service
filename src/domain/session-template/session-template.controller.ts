@@ -1,24 +1,29 @@
-import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
-import { CreateSessionTemplateDto} from "../user/dto/create-session-template.dto";
-import { UpdateSessionTemplateDto} from "../user/dto/update-session-template.dto";
+import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { CreateSessionTemplateDto} from "./dto/create-session-template.dto";
+import { UpdateSessionTemplateDto} from "./dto/update-session-template.dto";
 import { ApiBadRequestResponse, ApiForbiddenResponse, ApiInternalServerErrorResponse, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse, ApiUnprocessableEntityResponse } from "@nestjs/swagger";
-import { SessionTemplateResponDto } from "../user/dto/Session-template-response.dto";
+import { SessionTemplateResponDto } from "./dto/Session-template-response.dto";
 import { ApiOperationDecorator } from "src/common/api-operation.decorator";
+import { SessionTemplateService } from "./session-template.service";
 
 
 @ApiTags('SessionTemplate')
 @Controller('session-templates')
 export class SessionTemplateController {
-    constructor(){}
+    constructor(private service: SessionTemplateService){}
+
     @ApiOperationDecorator({
         type: SessionTemplateResponDto,
         summary: 'Get a  session template',
         description: 'Get a new session template'
     })
-    @Get(':sessionTemplateId')
-    findById(){
 
+    @Get(':sessionTemplateId')
+    findById(@Param('sessionTemplateId') sessionTemplateId:string){
+        const id = parseInt(sessionTemplateId, 10);
+        return this.service.findById(id);
     }
+
     @ApiOperationDecorator({
         type: SessionTemplateResponDto,
         summary: 'Create a new session template',
@@ -27,7 +32,7 @@ export class SessionTemplateController {
 
     @Post()
     create(@Body() data: CreateSessionTemplateDto) {
-        console.log(data);
+        return this.service.create(data);
     }
     
     @ApiOperationDecorator({
@@ -37,7 +42,19 @@ export class SessionTemplateController {
     })
 
     @Patch(':sessionTemplateId')
-    updateById(@Param('sessionTemplateId') sessionTemplateId: number, @Body() data: UpdateSessionTemplateDto) {
-        console.log(sessionTemplateId,data);
+    updateById(@Param('sessionTemplateId') sessionTemplateId: string, @Body() data: UpdateSessionTemplateDto) {
+        const id = parseInt(sessionTemplateId, 10);
+        return this.service.updateById(id, data);
+    }
+    
+    @Delete(':sessionTemplateId')
+    deleteById(@Param('sessionTemplateId') sessionTemplateId: string) {
+        const id = parseInt(sessionTemplateId, 10);
+        return this.service.deleteById(id);
+    }
+    
+    @Get()
+    getAllSessionTemplates() {
+        return this.service.findMany();
     }
 }
