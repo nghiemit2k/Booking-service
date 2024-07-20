@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Patch, Post, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Patch, Post, Req, UseGuards, UseInterceptors } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserSto } from "./dto/create-user.dto";
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Public } from "src/common/decorator/public.decorator";
 import { UserReq } from "src/common/decorator/user.decorator";
 import { User } from "@prisma/client";
+import { SerializeInterceptor } from "src/interceptor/serialize.intercepter";
 
 @ApiTags('User')
 @Controller()
@@ -37,6 +38,7 @@ export class UserController {
     updatePassword(){}
 
     // @UseGuards(AuthGuard)
+    @UseInterceptors(SerializeInterceptor)
     @Get('/users/me')
     getMe(@UserReq() user: User) {
         return user;
