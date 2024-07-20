@@ -25,6 +25,10 @@ model User {
   isActive      Boolean @default(true) @map("is_active")
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @default(now()) @updatedAt @map("updated_at")
+   coachSessions  Session[]    @relation(name: "coach")
+  clientSessions Session[]    @relation(name: "client")
+
+   @@map("user")
 }
 
 model SessionTemplate {
@@ -35,4 +39,22 @@ model SessionTemplate {
   is_active Boolean @default(true) @map("is_active")
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @default(now()) @updatedAt @map("updated_at")
+   sessions    Session[]
+
+  @@map("session_template")
+}
+
+model Session {
+  id                Int              @id @default(autoincrement())
+  coachId           Int              @map("coach_id")
+  coach             User?            @relation(name: "coach", fields: [coachId], references: [id])
+  clientId          Int              @map("client_id")
+  client            User?            @relation(name: "client", fields: [clientId], references: [id])
+  sessionTemplateId Int              @map("session_template_id")
+  sessionTemplate   SessionTemplate? @relation(fields: [sessionTemplateId], references: [id])
+  startAt           DateTime         @map("start_at")
+  createdAt         DateTime         @default(now()) @map("created_at")
+  updatedAt         DateTime         @default(now()) @updatedAt @map("updated_at")
+
+ @@map("session")
 }

@@ -4,17 +4,11 @@ import { SessionTemplateModule } from './domain/session-template/session-templat
 import { AuthModule } from './domain/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './domain/guard/auth.guard';
-
 import { DataBaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { validate } from './config';
 import { LoggerMiddleware } from './middleware/logger.middleware';
-import { AuthenticationMiddleware } from './middleware/authentication.middleware';
-
-
-import { UserService } from './domain/user/user.service';
-import { DatabaseService } from './database/database.service';
-
+import { SessionModule } from './domain/session/session.module';
 
 
 @Module({
@@ -24,6 +18,7 @@ import { DatabaseService } from './database/database.service';
     }),
     DataBaseModule,
     UserModule,
+    SessionModule,
     SessionTemplateModule,
     AuthModule],
   controllers: [],
