@@ -26,7 +26,7 @@ export class UserService extends BaseService< Prisma.UserCreateInput,Prisma.User
             timezoneCode: data.timezoneCode
 
         };
-        return this.databaseService.user.create({data: userData});
+        return this.create( userData);
     }
         
     async hashPassword(password: string) {

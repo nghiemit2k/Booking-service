@@ -14,32 +14,33 @@ datasource db {
 }
 
 model User {
-  id            Int     @default(autoincrement()) @id
-  email         String  @unique
-  firstName     String? @map("first_name")
-  lastName      String? @map("last_name")
-  phone         String?
-  timezoneCode  String? @map("timezone_code")
-  password      String
-  emailVerified Boolean @default(false) @map("email_verified")
-  isActive      Boolean @default(true) @map("is_active")
-  createdAt     DateTime @default(now()) @map("created_at")
-  updatedAt     DateTime @default(now()) @updatedAt @map("updated_at")
-   coachSessions  Session[]    @relation(name: "coach")
+  id             Int          @id @default(autoincrement())
+  email          String       @unique
+  firstName      String?      @map("first_name")
+  lastName       String?      @map("last_name")
+  phone          String?
+  timezoneCode   String?      @map("timezone_code")
+  password       String
+  emailVerified  Boolean      @default(false) @map("email_verified")
+  isActive       Boolean      @default(true) @map("is_active")
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @default(now()) @updatedAt @map("updated_at")
+  coachSessions  Session[]    @relation(name: "coach")
   clientSessions Session[]    @relation(name: "client")
+  credentials    Credential[] @relation(name: "credential")
 
-   @@map("user")
+  @@map("user")
 }
 
 model SessionTemplate {
-  id             Int     @default(autoincrement()) @id
-  name           String
-  description   String?
-  duration       Int
-  is_active Boolean @default(true) @map("is_active")
-  createdAt     DateTime @default(now()) @map("created_at")
-  updatedAt     DateTime @default(now()) @updatedAt @map("updated_at")
-   sessions    Session[]
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  duration    Int
+  is_active   Boolean   @default(true) @map("is_active")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at")
+  sessions    Session[]
 
   @@map("session_template")
 }
@@ -56,5 +57,18 @@ model Session {
   createdAt         DateTime         @default(now()) @map("created_at")
   updatedAt         DateTime         @default(now()) @updatedAt @map("updated_at")
 
- @@map("session")
+  @@map("session")
+}
+
+model Credential {
+  id              Int      @id @default(autoincrement())
+  userId          Int      @map("user_id")
+  user            User?    @relation(name: "credential", fields: [userId], references: [id])
+  integrationType String   @map("integration_type")
+  token           String
+  data            Json
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("credential")
 }

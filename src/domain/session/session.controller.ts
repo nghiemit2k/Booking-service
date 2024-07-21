@@ -32,9 +32,10 @@ export class SessionController {
     summary: 'Create a new session template',
     description: 'Create a new session template',
   })
+
   @Post('by-coach')
   create(@Body() data: CreateSessionByCoachDto, @UserReq() user: User) {
     data.coachId = user.id;
-    return this.service.create(data);
+    return this.service.createSession(data);
   }
 }
