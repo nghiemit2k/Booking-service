@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { validate } from './config';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { SessionModule } from './domain/session/session.module';
+import { CredentialModule } from './domain/credential/credential.module';
 
 
 @Module({
@@ -20,6 +21,7 @@ import { SessionModule } from './domain/session/session.module';
     UserModule,
     SessionModule,
     SessionTemplateModule,
+    CredentialModule,
     AuthModule],
   controllers: [],
   
