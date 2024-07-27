@@ -46,7 +46,7 @@ import {
     );
   
     // setup port
-    const appPort =  _.parseInt(process.env.APP_PORT) || 3000;
+    const appPort = _.parseInt(process.env.APP_PORT) || 3000;
     const appName = process.env.APP_NAME || 'Service';
   
     return {
