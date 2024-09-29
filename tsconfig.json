@@ -18,6 +18,13 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
-    "paths": {}
+    "paths": {
+      "@libs/@libs/core": [
+        "libs/@libs/core/src"
+      ],
+      "@libs/@libs/core/*": [
+        "libs/@libs/core/src/*"
+      ]
+    }
   }
 }

@@ -10,7 +10,7 @@
   "monorepo": true,
   "root": "apps/booking",
   "projects": {
-    "booking": {
+    "@apps/booking": {
       "type": "application",
       "root": "apps/booking",
       "entryFile": "main",
@@ -19,13 +19,22 @@
         "tsConfigPath": "apps/booking/tsconfig.app.json"
       }
     },
-    "webhook-service": {
+    "@apps/webhook-service": {
       "type": "application",
       "root": "apps/webhook-service",
       "entryFile": "main",
       "sourceRoot": "apps/webhook-service/src",
       "compilerOptions": {
         "tsConfigPath": "apps/webhook-service/tsconfig.app.json"
+      }
+    },
+    "@libs/core": {
+      "type": "library",
+      "root": "libs/@libs/core",
+      "entryFile": "index",
+      "sourceRoot": "libs/@libs/core/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/@libs/core/tsconfig.lib.json"
       }
     }
   }
