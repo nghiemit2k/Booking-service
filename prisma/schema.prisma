@@ -69,6 +69,6 @@ model Credential {
   data            Json
   createdAt       DateTime @default(now()) @map("created_at")
   updatedAt       DateTime @default(now()) @updatedAt @map("updated_at")
-
+ syncToken       String?  @map("sync_token")
   @@map("credential")
 }

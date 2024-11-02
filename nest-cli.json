@@ -28,15 +28,6 @@
         "tsConfigPath": "apps/webhook-service/tsconfig.app.json"
       }
     },
-    "@libs/core": {
-      "type": "library",
-      "root": "libs/@libs/core",
-      "entryFile": "index",
-      "sourceRoot": "libs/@libs/core/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/@libs/core/tsconfig.lib.json"
-      }
-    },
     "core": {
       "type": "library",
       "root": "libs/core",
@@ -44,6 +35,33 @@
       "sourceRoot": "libs/core/src",
       "compilerOptions": {
         "tsConfigPath": "libs/core/tsconfig.lib.json"
+      }
+    },
+    "@libs": {
+      "type": "library",
+      "root": "libs/@libs",
+      "entryFile": "index",
+      "sourceRoot": "libs/@libs/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/@libs/tsconfig.lib.json"
+      }
+    },
+    "integration": {
+      "type": "library",
+      "root": "libs/integration",
+      "entryFile": "index",
+      "sourceRoot": "libs/integration/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/integration/tsconfig.lib.json"
+      }
+    },
+    "integrate": {
+      "type": "library",
+      "root": "libs/integrate",
+      "entryFile": "index",
+      "sourceRoot": "libs/integrate/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/integrate/tsconfig.lib.json"
       }
     }
   }

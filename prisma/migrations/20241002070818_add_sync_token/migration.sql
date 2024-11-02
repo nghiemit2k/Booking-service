@@ -1,16 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `SessionTemplate` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-DROP TABLE "SessionTemplate";
-
--- DropTable
-DROP TABLE "User";
-
 -- CreateTable
 CREATE TABLE "user" (
     "id" SERIAL NOT NULL,
@@ -54,6 +41,19 @@ CREATE TABLE "session" (
     CONSTRAINT "session_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "credential" (
+    "id" SERIAL NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    "integration_type" TEXT NOT NULL,
+    "token" TEXT NOT NULL,
+    "data" JSONB NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "credential_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 
@@ -65,3 +65,6 @@ ALTER TABLE "session" ADD CONSTRAINT "session_client_id_fkey" FOREIGN KEY ("clie
 
 -- AddForeignKey
 ALTER TABLE "session" ADD CONSTRAINT "session_session_template_id_fkey" FOREIGN KEY ("session_template_id") REFERENCES "session_template"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "credential" ADD CONSTRAINT "credential_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

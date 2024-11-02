@@ -6,10 +6,9 @@ import setUpApplication from '../../../libs/core/src/setup';
 async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
-
   const { port, logInfo } = setUpApplication(app);
-
   await app.listen(port);
   logInfo();
+  console.log('Webhook Service is running on port:', port);
 }
 bootstrap();

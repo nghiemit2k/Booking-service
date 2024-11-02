@@ -44,7 +44,7 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
-
+ngrok http 3000
 ## Test
 
 ```bash
