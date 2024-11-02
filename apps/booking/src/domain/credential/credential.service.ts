@@ -84,28 +84,10 @@ export class CredentialService extends BaseService<
         return response.data;
     }
 
-    async getListEvents(userId: number) {
-        const credential = await this.databaseService.credential.findFirst({
-            where: {
-                userId,
-                integrationType: 'google'
-            }
-        });
-        if (!credential) {
-            throw new BadRequestException('No Google credentials found for this user');
-        }
 
-        oauth2Client.setCredentials({ refresh_token: credential.token });
-        const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
-
-        const response = await calendar.events.list({
-            calendarId: 'primary',
-            // timeMin: new Date('2024-08-01T00:00:00Z').toISOString(),
-            // maxResults: 1000,
-            singleEvents: true,
-            syncToken: 'token',
-            // orderBy: 'startTime',
+    findOneByUserId(userId: number, integrationType: string) {
+        return this.databaseService.credential.findFirst({
+            where: { userId, integrationType }
         })
-        return response.data;
     }
 }

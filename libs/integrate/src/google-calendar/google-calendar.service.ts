@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { google } from "googleapis";
+import { calendar_v3, google } from "googleapis";
 //TODO: implement config for google calendar module
 const oauth2Client = new google.auth.OAuth2({
     clientId: process.env.GOOGLE_CLIENT_ID,
@@ -54,6 +54,18 @@ export class GoogleCalendarService {
             throw new Error('Sync token not found');
         }
         return syncToken;
+    }
+
+    async createEvent(refreshToken: string, data: calendar_v3.Schema$Event) {
+
+        oauth2Client.setCredentials({ refresh_token: refreshToken });
+        const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
+
+        const response = await calendar.events.insert({
+            calendarId: 'primary',
+            requestBody: data
+        })
+        return response.data;
     }
 
 }
