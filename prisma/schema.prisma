@@ -56,10 +56,17 @@ model Session {
   startAt           DateTime         @map("start_at")
   createdAt         DateTime         @default(now()) @map("created_at")
   updatedAt         DateTime         @default(now()) @updatedAt @map("updated_at")
-
+  externalSessions  ExternalSession[]
   @@map("session")
 }
-
+model ExternalSession {
+  id              Int      @id @default(autoincrement())
+  calendarType    String   @map("calendar_type")
+  sessionId       Int      @map("session_id")
+  session         Session? @relation(fields: [sessionId], references: [id])
+  externalSessionId String?  @map("external_session_id")
+  @@map("external_session")
+}
 model Credential {
   id              Int      @id @default(autoincrement())
   userId          Int      @map("user_id")
