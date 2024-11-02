@@ -24,6 +24,24 @@
       ],
       "@libs/@libs/core/*": [
         "libs/@libs/core/src/*"
+      ],
+      "@app/@libs": [
+        "libs/@libs/src"
+      ],
+      "@app/@libs/*": [
+        "libs/@libs/src/*"
+      ],
+      "@app/integration": [
+        "libs/integration/src"
+      ],
+      "@app/integration/*": [
+        "libs/integration/src/*"
+      ],
+      "@libs/integrate": [
+        "libs/integrate/src"
+      ],
+      "@libs/integrate/*": [
+        "libs/integrate/src/*"
       ]
     }
   }

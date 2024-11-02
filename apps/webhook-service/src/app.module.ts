@@ -1,7 +1,8 @@
-import {  Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 
 import { ConfigModule } from '@nestjs/config';
 import { validate } from './config';
+import { AppController } from './app.controller';
 
 
 @Module({
@@ -9,17 +10,17 @@ import { validate } from './config';
     ConfigModule.forRoot({
       validate
     }),
-   ],
-  controllers: [],
-  
-  providers: [ 
-   
- ] ,
+  ],
+  controllers: [AppController],
 
- exports: [],
+  providers: [
+
+  ],
+
+  exports: [],
 })
 
- 
+
 
 export class AppModule {
 

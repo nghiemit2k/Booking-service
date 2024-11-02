@@ -13,7 +13,8 @@
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
-    "start:dev:booking": "dotenv -e ./apps/booking/.env.local -- nest start --watch",
+    "start:dev:booking": "dotenv -e ./apps/booking/.env.local -- nest start --watch @apps/booking",
+    "start:dev:webhook": "dotenv -e ./apps/webhook-service/.env.local -- nest start --watch @apps/webhook-service",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/apps/booking/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -22,7 +23,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/booking/test/jest-e2e.json",
-    "migration/generate": "dotenv -e .env.local npx prisma migrate dev"
+    "migration:generate": "dotenv -e /apps/booking/.env.local npx prisma migrate dev"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -91,7 +92,11 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@libs/@libs/core(|/.*)$": "<rootDir>/libs/@libs/core/src/$1"
+      "^@libs/@libs/core(|/.*)$": "<rootDir>/libs/@libs/core/src/$1",
+      "^@libs/core(|/.*)$": "<rootDir>/libs/core/src/$1",
+      "^@app/@libs(|/.*)$": "<rootDir>/libs/@libs/src/$1",
+      "^@app/integration(|/.*)$": "<rootDir>/libs/integration/src/$1",
+      "^@libs/integrate(|/.*)$": "<rootDir>/libs/integrate/src/$1"
     }
   }
 }

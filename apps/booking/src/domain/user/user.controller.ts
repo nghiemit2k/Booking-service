@@ -12,8 +12,7 @@ import { SerializeInterceptor } from "../../interceptor/serialize.intercepter";
 @ApiTags('User')
 @Controller()
 export class UserController {
-    constructor(private userService: UserService){
-        console.log("UserService",userService);
+    constructor(private userService: UserService) {
     }
 
     @Get('/users/')
@@ -24,20 +23,20 @@ export class UserController {
     @ApiOperation({
         summary: "Register a new user",
     })
-    @ApiBadRequestResponse({description:"Validation error"})
-    @ApiCreatedResponse({description:" User created successfully"})
+    @ApiBadRequestResponse({ description: "Validation error" })
+    @ApiCreatedResponse({ description: " User created successfully" })
     @Public()
 
     @Post('/register/')
     register(@Body() data: CreateUserSto) {
-       return this.userService.register(data);
+        return this.userService.register(data);
     }
 
     // @Patch('users/:userId')
     // updateUserInfo(){}
 
     @Patch('/users/:userId/update-password')
-    updatePassword(){}
+    updatePassword() { }
 
     // @UseGuards(AuthGuard)
     @UseInterceptors(SerializeInterceptor)
@@ -48,14 +47,14 @@ export class UserController {
 
     //TODO: implement API update user info
     @Patch('/users/me')
-    updateUserInfo(){
+    updateUserInfo() {
         // const userId
         // update userinfo of the userId
     }
     // TODO: implement API update user password
 
     @Patch('/users/me/update-password')
-    updateUserPassword(){
+    updateUserPassword() {
         // const userId
         // update user password of the userId
     }

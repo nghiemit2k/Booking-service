@@ -24,20 +24,20 @@ import { CredentialModule } from './domain/credential/credential.module';
     CredentialModule,
     AuthModule],
   controllers: [],
-  
-  providers: [ 
-    {
-    provide: APP_GUARD,
-    useClass: AuthGuard,
-  }, 
- ] ,
 
- exports: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
+
+  exports: [],
 })
 
- 
 
-export class AppModule implements NestModule{
+
+export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     // import middleware for routes
     consumer.apply(LoggerMiddleware).forRoutes('*');
