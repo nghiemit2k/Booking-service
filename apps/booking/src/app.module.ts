@@ -10,8 +10,8 @@ import { validate } from './config';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { SessionModule } from './domain/session/session.module';
 import { CredentialModule } from './domain/credential/credential.module';
-
-
+import { GoogleCalendarModule } from '@libs/integrate';
+import config from './config';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,7 +22,12 @@ import { CredentialModule } from './domain/credential/credential.module';
     SessionModule,
     SessionTemplateModule,
     CredentialModule,
-    AuthModule],
+    AuthModule,
+    GoogleCalendarModule.forRoot({
+      clientId: config.GOOGLE_CLIENT_ID,
+      clientSecret: config.GOOGLE_CLIENT_SECRET,
+      redirectUri: 'http://localhost:3300/api/credentials/google-auth-callback'
+    })],
   controllers: [],
 
   providers: [
