@@ -1,17 +1,21 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { calendar_v3, google } from "googleapis";
+import { GOOGLE_CALENDAR_CONFIG } from "./google-calendar.config";
+import { googleCalendarConfig } from "./google-calendar.config";
 //TODO: implement config for google calendar module
-const oauth2Client = new google.auth.OAuth2({
-    clientId: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    redirectUri: 'http://localhost:3300/api/credentials/google-auth-callback'
-
-})
 
 @Injectable()
 export class GoogleCalendarService {
+    private oauth2Client: any;
+    constructor(@Inject(GOOGLE_CALENDAR_CONFIG) config: googleCalendarConfig) {
+        this.oauth2Client = new google.auth.OAuth2({
+            clientId: config.clientId,
+            clientSecret: config.clientSecret,
+            redirectUri: config.redirectUri
+        })
+    }
     getGoogleAuthUrl(): { authUrl: string } {
-        const authUrl = oauth2Client.generateAuthUrl({
+        const authUrl = this.oauth2Client.generateAuthUrl({
             access_type: 'offline',
             scope: ['https://www.googleapis.com/auth/calendar.events.owned'],
             prompt: 'consent'
@@ -23,9 +27,9 @@ export class GoogleCalendarService {
     createWebhookChannel(refreshToken: string, {
         id, token, address }: { id: string, token: string, address: string },
     ) {
-        oauth2Client.setCredentials({ refresh_token: refreshToken });
+        this.oauth2Client.setCredentials({ refresh_token: refreshToken });
 
-        const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
+        const calendar = google.calendar({ version: 'v3', auth: this.oauth2Client });
         console.log('🚀 ~ GoogleCalendarService ~ createWebhookChannel ~ calendar:', calendar);
         return calendar.events.watch({
             calendarId: 'primary',
@@ -39,8 +43,8 @@ export class GoogleCalendarService {
     }
 
     getListEvents(refreshToken: string) {
-        oauth2Client.setCredentials({ refresh_token: refreshToken });
-        const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
+        this.oauth2Client.setCredentials({ refresh_token: refreshToken });
+        const calendar = google.calendar({ version: 'v3', auth: this.oauth2Client });
         return calendar.events.list({
             calendarId: 'primary',
             // singleEvents: true,
@@ -59,8 +63,8 @@ export class GoogleCalendarService {
 
     async createEvent(refreshToken: string, data: calendar_v3.Schema$Event) {
 
-        oauth2Client.setCredentials({ refresh_token: refreshToken });
-        const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
+        this.oauth2Client.setCredentials({ refresh_token: refreshToken });
+        const calendar = google.calendar({ version: 'v3', auth: this.oauth2Client });
 
         const response = await calendar.events.insert({
             calendarId: 'primary',
@@ -69,8 +73,8 @@ export class GoogleCalendarService {
         return response.data;
     }
     getSyncedEvents(refreshToken: string, syncToken: string) {
-        oauth2Client.setCredentials({ refresh_token: refreshToken });
-        const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
+        this.oauth2Client.setCredentials({ refresh_token: refreshToken });
+        const calendar = google.calendar({ version: 'v3', auth: this.oauth2Client });
         return calendar.events.list({
             calendarId: 'primary',
             syncToken,
