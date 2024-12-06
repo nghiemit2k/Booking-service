@@ -26,6 +26,7 @@ export class GoogleCalendarService {
         oauth2Client.setCredentials({ refresh_token: refreshToken });
 
         const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
+        console.log('🚀 ~ GoogleCalendarService ~ createWebhookChannel ~ calendar:', calendar);
         return calendar.events.watch({
             calendarId: 'primary',
             requestBody: {
@@ -67,7 +68,15 @@ export class GoogleCalendarService {
         })
         return response.data;
     }
-
+    getSyncedEvents(refreshToken: string, syncToken: string) {
+        oauth2Client.setCredentials({ refresh_token: refreshToken });
+        const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
+        return calendar.events.list({
+            calendarId: 'primary',
+            syncToken,
+            maxResults: 2500,
+        })
+    }
 }
 
 // 44 phut

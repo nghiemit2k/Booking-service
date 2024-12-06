@@ -27,9 +27,9 @@ export class CredentialService extends BaseService<
 
     ) {
         super(databaseService, 'credential');
-        this.address = 'https://fd17-2001-ee0-5195-620-d4d3-9c54-21b1-b524.ngrok-free.app/google/watch'
+        this.address = 'https://dc8c-2001-ee0-5195-620-d4d3-9c54-21b1-b524.ngrok-free.app/google/watch';
+        console.log('this.address', this.address);
     }
-
 
     async handleGoogleAuthCallback(code: string) {
         try {
