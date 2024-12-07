@@ -12,11 +12,13 @@ import { SessionModule } from './domain/session/session.module';
 import { CredentialModule } from './domain/credential/credential.module';
 import { GoogleCalendarModule } from '@libs/integrate';
 import config from './config';
+import { PostmarkModule } from '@libs/integrate/postmark/postmark.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
       validate
     }),
+    PostmarkModule,
     DataBaseModule,
     UserModule,
     SessionModule,

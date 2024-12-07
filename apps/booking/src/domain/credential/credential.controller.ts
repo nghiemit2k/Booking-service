@@ -1,15 +1,15 @@
-import { Controller, Get, Query } from "@nestjs/common";
+import { Controller, Get, Post, Query } from "@nestjs/common";
 import { CredentialService } from "./credential.service";
 import { Public } from "../../common/decorator/public.decorator";
 import { UserReq } from "../../common/decorator/user.decorator";
 import { User } from "@prisma/client";
 import { GoogleCalendarService } from "@libs/integrate";
 
-
 @Controller('credentials')
 export class CredentialController {
     constructor(private credentialsService: CredentialService,
-        private googleCalendarService: GoogleCalendarService
+        private googleCalendarService: GoogleCalendarService,
+
     ) { }
 
     @Get('google-auth-url')
@@ -29,5 +29,6 @@ export class CredentialController {
     // getListEvents(@UserReq() user: User) {
     //     return this.credentialsService.getListEvents(user.id);
     // }
+
 
 }

@@ -1,0 +1,8 @@
+{
+    "name": "@apps/cron-service",
+    "version": "0.0.1",
+    "main": "dist/apps/cron-service/main",
+    "scripts": {
+        "start": "nest start"
+    }
+}
